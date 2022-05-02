@@ -36,7 +36,6 @@ def load_data_global_color_histogram(a,z):
                     images.append(img_array)
                     
                 i = i + 1
-                print(i,j)
             lb = x
             labels.append(lb);
     data = np.array(images)
