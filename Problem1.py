@@ -5,6 +5,7 @@ from keras.preprocessing import image
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn import metrics
 from sklearn.preprocessing import LabelEncoder
+
 def load_data_grayscale():
     path = './TenCategories/'
     files = os.listdir(path)
