@@ -82,8 +82,8 @@ def predict_rgb(n):
     accuracy = np.array(accuracy)
     max_n_neighbors = np.array(np.where(accuracy==max(accuracy)))
     min_n_neighbors = np.array(np.where(accuracy==min(accuracy)))
-    print("(a) 像素級顏色表示---  最大索引值 : {} ，當前最大值 : {}".format(max_n_neighbors,max(accuracy)))
-    print("(a) 像素級顏色表示---  最小索引值 : {} ，當前最小值 : {}".format(min_n_neighbors,min(accuracy)))
+    print("(b) 像素級顏色表示---  最大索引值 : {} ，當前最大值 : {}".format(max_n_neighbors,max(accuracy)))
+    print("(b) 像素級顏色表示---  最小索引值 : {} ，當前最小值 : {}".format(min_n_neighbors,min(accuracy)))
 
 
 print("Loading data...")
