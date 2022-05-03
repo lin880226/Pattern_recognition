@@ -28,9 +28,13 @@ def load_data(size):
     data = np.array(images)
     labels = np.array(labels)
     return data, labels
+
+
 def predict():
     i=0
     k_scores = []
+    max_value = np.array([[0,0,0,0,0],[0,0,0,0,0]])
+    temp = 0
     for k_number in range(2,10,1):
         for img_size in range(50,250,100):
             for cell_size in range(10,40,20):
@@ -50,7 +54,15 @@ def predict():
                     k_scores.append(scores.mean())
                     print(i)
                     print('Fold: {},img_size: {},cell_size: {} , orientations:{},Training/Test Split Distribution: {}, Accuracy: {}' .format(k_number+1,img_size, cell_size,orientations,np.bincount(encoder_labels), k_scores))
-    
-print("Loading data...")
+                    max_ = max(k_scores)
+                    max_list = np.array([k_number,img_size,cell_size,orientations,max_])
+                    if temp  == max_:  
+                        max_value = np.vstack([max_value,max_list])
+                    elif temp < max_:
+                        temp = max_
+                        max_value = np.delete(max_value,-1,axis=0)
+                        max_value = np.vstack([max_value,max_list])
+
+    return max_value
 
 predict()
