@@ -63,6 +63,7 @@ def predict():
                         max_value = np.delete(max_value,-1,axis=0)
                         max_value = np.vstack([max_value,max_list])
 
-    return max_value
+    return max_value,k_scores
 
-predict()
+max_value,value = predict()
+print(max_value)

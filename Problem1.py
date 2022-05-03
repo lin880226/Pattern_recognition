@@ -5,6 +5,7 @@ from keras.preprocessing import image
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn import metrics
 from sklearn.preprocessing import LabelEncoder
+import matplotlib.pyplot as plt
 
 def load_data_grayscale():
     path = './TenCategories/'
@@ -70,6 +71,7 @@ def predict_grayscale(n):
     min_n_neighbors = np.array(np.where(accuracy==min(accuracy)))
     print("(a) 像素級灰度表示---  最大索引值 : {} ，當前最大值 : {}".format(max_n_neighbors,max(accuracy)))
     print("(a) 像素級灰度表示---  最小索引值 : {} ，當前最小值 : {}".format(min_n_neighbors,min(accuracy)))
+    return accuracy
 def predict_rgb(n):
     (x_train, x_test, y_train, y_test) = train_test_split(images_rgb_new, encoder_labels, test_size=0.2)
     accuracy = []
@@ -84,7 +86,7 @@ def predict_rgb(n):
     min_n_neighbors = np.array(np.where(accuracy==min(accuracy)))
     print("(b) 像素級顏色表示---  最大索引值 : {} ，當前最大值 : {}".format(max_n_neighbors,max(accuracy)))
     print("(b) 像素級顏色表示---  最小索引值 : {} ，當前最小值 : {}".format(min_n_neighbors,min(accuracy)))
-
+    return accuracy
 
 print("Loading data...")
 images_grayscale, labels = load_data_grayscale()
@@ -94,6 +96,16 @@ images_rgb_new = np.array(images_rgb).reshape(1000,-1)
 labelencoder = LabelEncoder()
 encoder_labels = labelencoder.fit_transform(labels) #進行Labelencoding編碼
 #print(encoder_labels)
+def show_train_history(train_history, name, value):  
+    plt.title(name)  
+    plt.ylabel(value)  
+    plt.xlabel('Epoch')  
+    plt.plot(train_history ,'.')
+    plt.show()  
 
-predict_grayscale(50)
-predict_rgb(50)
+grayscale_accuracy = predict_grayscale(50)
+rgb_accuracy = predict_rgb(50)
+show_train_history(grayscale_accuracy, 'grayscale', 'accuracy')  
+show_train_history(rgb_accuracy, 'rgb', 'accuracy')  
+
+

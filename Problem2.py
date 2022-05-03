@@ -6,6 +6,8 @@ from sklearn import metrics
 from sklearn.preprocessing import LabelEncoder
 import cv2
 from keras.preprocessing import image
+import matplotlib.pyplot as plt
+
 def load_data_global_color_histogram():
     path = './TenCategories/'
     files = os.listdir(path)
@@ -47,7 +49,7 @@ def predict_global_color_histogram(n):
     min_n_neighbors = np.array(np.where(accuracy==min(accuracy)))
     print(" 全局顏色直方圖---  最大索引值 : {} ，當前最大值 : {}".format(max_n_neighbors,max(accuracy)))
     print(" 全局顏色直方圖---  最小索引值 : {} ，當前最小值 : {}".format(min_n_neighbors,min(accuracy)))
-
+    return accuracy
 
 print("Loading data...")
 images_global_color_histogram, labels = load_data_global_color_histogram()
@@ -58,5 +60,14 @@ labelencoder = LabelEncoder()
 encoder_labels = labelencoder.fit_transform(labels) #進行Labelencoding編碼
 #print(encoder_labels)
 
-predict_global_color_histogram(50)
 
+def show_train_history(train_history, name, value):  
+    plt.title(name)  
+    plt.ylabel(value)  
+    plt.xlabel('Epoch')  
+    plt.plot(train_history ,'.')
+    plt.show()  
+    
+global_color_histogram_accuracy = predict_global_color_histogram(50)
+
+show_train_history(global_color_histogram_accuracy, 'global_color_histogram', 'accuracy')  
